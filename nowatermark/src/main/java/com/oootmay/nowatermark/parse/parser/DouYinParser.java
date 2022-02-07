@@ -5,6 +5,7 @@ import cn.hutool.json.JSONNull;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.oootmay.nowatermark.parse.BareParser;
+import com.oootmay.nowatermark.parse.Platform;
 import com.oootmay.nowatermark.parse.enums.MediaType;
 import com.oootmay.nowatermark.result.BareResult;
 import com.oootmay.nowatermark.utils.DownloadUtil;
@@ -86,7 +87,7 @@ public class DouYinParser implements BareParser {
                 // 官方图片信息
                 String originUrl = imageJSONArray.getJSONObject(i).getJSONArray("url_list").getStr(0);
                 // 下载到本地服务器，解决跨域问题
-                String downloadUrl = DownloadUtil.download(originUrl, MediaType.IMAGE);
+                String downloadUrl = DownloadUtil.download(originUrl, MediaType.IMAGE, Platform.DOU_YIN);
                 images.add(new BareResult.Image(
                         downloadUrl,
                         imageJSONArray.getJSONObject(i).getInt("width"),
@@ -102,7 +103,7 @@ public class DouYinParser implements BareParser {
             // 官方视频信息
             String originUrl = videoObject.getJSONObject("play_addr").getJSONArray("url_list").getStr(0).replace("playwm", "play");
             // 下载到本地服务器，解决跨域问题
-            String downloadUrl = DownloadUtil.download(originUrl, MediaType.VIDEO);
+            String downloadUrl = DownloadUtil.download(originUrl, MediaType.VIDEO, Platform.DOU_YIN);
             videos.add(new BareResult.Video(
                     downloadUrl,
                     videoObject.getStr("radio"),

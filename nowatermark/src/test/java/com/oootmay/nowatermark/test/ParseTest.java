@@ -22,6 +22,12 @@ public class ParseTest {
     @Resource
     private BareService bareService;
 
+
+
+
+
+
+
     /**
      * 解析校验
      * @param platform 平台

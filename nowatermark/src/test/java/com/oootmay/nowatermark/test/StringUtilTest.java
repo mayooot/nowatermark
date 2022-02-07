@@ -18,9 +18,9 @@ public class StringUtilTest {
     void testFilterUrl() {
         // String url = StringUtil.filterUrl("@易梦玲.* 发了一个快手作品，一起来看！https://v.kuaishou.com/gjlD4V 复制此消息，打开【快手】直接观看！");
         // System.out.println(url);
-        String url = StringUtil.filterUrl("6.97 oDU:/ 呜呜呜人家也不想做搞笑女哇 所以快给我摸下pp%表情包 %艾特你想艾特的人 %搞笑女 @抖音小助手   https://v.douyin.com/LHMdmHe/ 复制此链接，打开Dou音搜索，直接观看视频！");
+        // String url = StringUtil.filterUrl("6.97 oDU:/ 呜呜呜人家也不想做搞笑女哇 所以快给我摸下pp%表情包 %艾特你想艾特的人 %搞笑女 @抖音小助手   https://v.douyin.com/LHMdmHe/ 复制此链接，打开Dou音搜索，直接观看视频！");
         // https://v.douyin.com/LHMdmHe/ 复制此链接，打开Dou音搜索，直接观看视频！
-        System.out.println(url);
+
     }
 
     @Test

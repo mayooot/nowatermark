@@ -1,6 +1,7 @@
 package com.oootmay.nowatermark.utils;
 
 import cn.hutool.core.lang.UUID;
+import com.oootmay.nowatermark.parse.Platform;
 import com.oootmay.nowatermark.parse.enums.MediaType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,11 +29,15 @@ public class DownloadUtil {
                 "1.jpg", downloadPath);
     }
 
-    public static String download(String url, MediaType mediaType) throws Exception {
+    public static String download(String url, MediaType mediaType, Platform platform) throws Exception {
         UUID fileName = UUID.randomUUID();
+        String downloadUrl = url;
         if (mediaType.getName().equals("视频")) {
-            String parseUrl = DownloadUtil.parseUrl(url);
-            downLoadFromUrl(parseUrl, fileName + vedioExtension, downloadPath);
+            if (platform.getName().equals("抖音")) {
+                // 如果是抖音平台的，则需要将网址转化为可下载的网址
+                downloadUrl = DownloadUtil.parseUrl(url);
+            }
+            downLoadFromUrl(downloadUrl, fileName + vedioExtension, downloadPath);
             return "http://localhost:9876/" + fileName + vedioExtension;
         } else {
             downLoadFromUrl(url, fileName + imageExtension, downloadPath);
@@ -41,7 +46,7 @@ public class DownloadUtil {
     }
 
     /**
-     * 将不可以跨域的URL转换为可跨域的URL
+     * 将不可以跨域的URL转换为可跨域的URL， 目前只有抖音平台需要这个方法
      * @return 可跨域的URL
      */
     public static String parseUrl(String url) throws Exception {
@@ -64,7 +69,7 @@ public class DownloadUtil {
      * @param savePath
      * @throws IOException
      */
-    public static void  downLoadFromUrl(String urlStr,String fileName,String savePath) throws IOException {
+    public static void  downLoadFromUrl(String urlStr, String fileName, String savePath) throws IOException {
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         //设置超时间为3秒

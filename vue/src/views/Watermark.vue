@@ -1,11 +1,13 @@
 <template>
+  <!-- 懒洋洋logo图片 -->
   <el-row style="margin-top: 50px" justify="center" align="middle">
     <el-image
         style="width: 200px;height: 200px"
         src="https://s4.ax1x.com/2022/02/07/HMGy1e.jpg"
     ></el-image>
   </el-row>
-    <el-row style="margin-top: 10px" justify="center" align="middle">
+  <!-- 主体部分 -->
+  <el-row style="margin-top: 10px" justify="center" align="middle">
       <el-input v-model="inputUrl" placeholder="请输入分享链接" style="width: 40%; display: inline-table;"></el-input>
       <el-popover
         placement="top-start"
@@ -108,6 +110,10 @@ export default {
         })
         return
       }
+      this.$message({
+        type: 'success',
+        message: '正在解析中，请稍等片刻~🪄'
+      })
       // 发送axios请求
       request.post("/bare", {
         url: url
@@ -164,6 +170,10 @@ export default {
         })
         return
       }
+      this.$message({
+        type: 'success',
+        message: '正在解析中，请稍等片刻~🪄'
+      })
       // 发送axios请求
       request.post("/bare", {
         url: url
@@ -175,7 +185,7 @@ export default {
           if (res.data.type === 'VIDEO') {
             this.$message({
               type: 'success',
-              message: '解析成功！作品类型为视频，请稍待片刻~'
+              message: '解析成功！作品类型为视频!'
             })
             this.previewCover = res.data.cover.url
             this.previewUrl = res.data.videos[0].url
@@ -184,7 +194,7 @@ export default {
           } else if (res.data.type === 'IMAGE') {
             this.$message({
               type: 'success',
-              message: '解析成功！作品类型为图集，请稍待片刻~'
+              message: '解析成功！作品类型为图集'
             })
            this.carouselList = res.data.images
            this.imagesDialogVisible = true
