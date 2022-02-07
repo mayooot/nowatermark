@@ -1,0 +1,52 @@
+package com.oootmay.nowatermark.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.oootmay.nowatermark.result.BareResult;
+import com.oootmay.nowatermark.service.BareService;
+import com.oootmay.nowatermark.utils.DownloadUtil;
+import com.oootmay.nowatermark.utils.ResponseUtil;
+import com.oootmay.nowatermark.utils.ReturnObject;
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+/**
+ * <p>项目文档： TODO</p>
+ *
+ * @author liming
+ * @version 1.0.0
+ * @createTime 2022年01月31日 22:36:00
+ */
+@Api(tags = "短视频/图片去水印")
+@RestController
+public class ApiController {
+    @Resource
+    private BareService bareService;
+
+    /**
+     * 下载接口，后端会将无水印作品先下载到本地服务器，然后返回本地服务器上的作品url
+     * @param url 用户分享的链接
+     * @return 无水印的作品信息集合
+     */
+    @PostMapping("/bare")
+    private ReturnObject<BareResult> bare(@RequestBody String url) throws Exception{
+        return ResponseUtil.ok(bareService.parse(url));
+    }
+
+
+    /**
+     * 当用户下载完视频后，一分钟后删除服务器上的文件
+     * @param path 文件的完整路径，需要再次split，前端split之后的path没有办法传进来 - -
+     */
+    @PostMapping("/delete")
+    private void delete(@RequestBody String path) throws InterruptedException {
+        JSONObject jsonObject = JSON.parseObject(path);
+        String originPath = jsonObject.getString("path");
+        System.out.println(originPath);
+        DownloadUtil.deleteFromPath(originPath);
+    }
+}

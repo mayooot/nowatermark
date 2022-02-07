@@ -11,11 +11,15 @@
 
 <script>
   import Header from "@/components/Header";
+  import Watermark from "@/views/Watermark";
+  import Sticker from "@/views/Sticker";
 
   export default {
     name: "Layout",
     components: {
-      Header
+      Header,
+      Watermark,
+      Sticker
     }
   }
 </script>
