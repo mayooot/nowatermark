@@ -33,13 +33,13 @@
      <!-- 视频预览框 -->
       <el-dialog
           v-model="dialogVisible"
-          width="30%"
+          width="80%"
           title="预览☁️"
       >
         <span class="demonstration">视频封面：</span>
           <el-image
-              style="width: 100px; height: 100px"
-              :src="previewCover"
+              :style="{width: (this.video.width / 10) + 'px', height: (this.video.height / 10) + 'px'}"
+              :src="this.previewCover"
           ></el-image>
         <el-divider border-style="dashed"></el-divider>
 
@@ -57,7 +57,7 @@
       <!-- 图集预览框 -->
       <el-dialog
           v-model="imagesDialogVisible"
-          width="50%"
+          width="90%"
           title="预览🐾"
       >
           <el-carousel :interval="2000" type="card" height="200px">
@@ -96,7 +96,15 @@ export default {
       previewUrl: '',
       previewCover: '',
       carouselList: [],
-      imageUrl: ''
+      imageUrl: '',
+      video: {
+        width: '108',
+        height: '192'
+      },
+      image: {
+        width: '108',
+        height: '192'
+      }
     }
   },
   methods: {
@@ -179,6 +187,7 @@ export default {
         url: url
       }).then(res => {
         if (res.code === 200) {
+          console.log(res.data)
           // 清空输入框
           this.inputUrl = ''
           // 请求成功，先弹出警告栏，再弹出信息窗口
@@ -189,6 +198,8 @@ export default {
             })
             this.previewCover = res.data.cover.url
             this.previewUrl = res.data.videos[0].url
+            this.video.width = res.data.videos[0].width
+            this.video.height = res.data.videos[0].height
             this.dialogVisible = true
             this.deleteFile(this.previewUrl) // 调用删除方法
           } else if (res.data.type === 'IMAGE') {
@@ -245,6 +256,12 @@ export default {
 </script>
 
 <style scoped>
+.el-dialog {
+  margin-top: 9vh !important;
+  margin-bottom: 8vh !important;
+  overflow: auto;
+}
+
 .demonstration {
   display: block;
   color: var(--el-text-color-secondary);

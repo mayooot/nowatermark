@@ -7,7 +7,6 @@ import com.oootmay.nowatermark.parse.enums.MediaType;
 import com.oootmay.nowatermark.result.BareResult;
 import com.oootmay.nowatermark.utils.DownloadUtil;
 import com.oootmay.nowatermark.utils.RestTemplateUtil;
-import com.oootmay.nowatermark.utils.UserAgentUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -79,7 +78,11 @@ public class KuaiShouParser implements BareParser {
                                         .setCover(new BareResult.Image(mediaJob.getString("poster")));
                                 String originUrl = mediaJob.getString("srcNoMark");
                                 String downloadUrl = DownloadUtil.download(originUrl, MediaType.VIDEO, Platform.KUAI_SHOU);
-                                videos.add(new BareResult.Video(downloadUrl));
+                                videos.add(new BareResult.Video(downloadUrl,
+                                        null,
+                                        Integer.parseInt(mediaJob.getString("width")),
+                                        Integer.parseInt(mediaJob.getString("height"))
+                                ));
                             }
                             if ("images".equals(photoType) || "image_long".equals(photoType)) {
                                 // 处理图集
