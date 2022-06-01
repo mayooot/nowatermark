@@ -111,6 +111,24 @@
     </dependencies>
 
     <build>
+        <!--解决keystore文件解析报错  开始-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>https.keystore</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>https.keystore</include>
+                </includes>
+            </resource>
+        </resources>
+        <!--解决keystore文件解析报错   结束-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -123,6 +141,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
             </plugin>
         </plugins>
     </build>

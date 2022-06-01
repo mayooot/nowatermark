@@ -40,6 +40,10 @@ public class KuaiShouParser implements BareParser {
 
     @Override
     public BareResult parse(String flag) throws Exception {
+        if (flag.contains("v.kuaishouapp.com")) {
+            flag = flag.replace("v.kuaishouapp.com", "v.kuaishou.com");
+        }
+        System.out.println(flag);
         // 构建结果
         BareResult result = new BareResult();
         List<BareResult.Video> videos = new ArrayList<>();

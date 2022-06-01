@@ -6,6 +6,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
+  servlet:
+    multipart:
+      max-file-size: 10MB
 mybatis-plus:
   global-config:
     db-config:

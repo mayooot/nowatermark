@@ -15,6 +15,7 @@ class ParsePlatformConfig {
             Platform.DOU_YIN,
             Platform.KUAI_SHOU,
             Platform.WEI_BO,
-            Platform.XIAO_HONG_SHU
+            Platform.XIAO_HONG_SHU,
+            Platform.KUAI_SHOU_QUICK
     };
 }

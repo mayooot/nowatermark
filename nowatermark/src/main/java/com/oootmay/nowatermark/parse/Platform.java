@@ -9,7 +9,8 @@ public enum Platform {
     DOU_YIN("抖音", "v.douyin.com", DouYinParser.class),
     KUAI_SHOU("快手", "v.kuaishou.com", KuaiShouParser.class),
     WEI_BO("微博", "video.weibo", WeiBoParser.class),
-    XIAO_HONG_SHU("小红书", "xhslink.com", XiaoHongShuParser.class);
+    XIAO_HONG_SHU("小红书", "xhslink.com", XiaoHongShuParser.class),
+    KUAI_SHOU_QUICK("快手极速版", "v.kuaishouapp.com", KuaiShouParser.class);
 
     private final String name;
     private final String domain;

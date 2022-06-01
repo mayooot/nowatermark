@@ -102,6 +102,7 @@ public class DouYinParser implements BareParser {
 
             // 官方视频信息
             String originUrl = videoObject.getJSONObject("play_addr").getJSONArray("url_list").getStr(0).replace("playwm", "play");
+            System.out.println(originUrl);
             // 下载到本地服务器，解决跨域问题
             String downloadUrl = DownloadUtil.download(originUrl, MediaType.VIDEO, Platform.DOU_YIN);
             videos.add(new BareResult.Video(

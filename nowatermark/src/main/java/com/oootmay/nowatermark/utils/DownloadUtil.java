@@ -20,7 +20,9 @@ import java.net.URLConnection;
  * @createTime 2022年02月05日 18:32:00
  */
 public class DownloadUtil {
-    private static final String downloadPath = "C:\\Users\\86183\\Desktop\\watermark\\watermark-demo\\vue\\public";
+    private static final String downloadPath = "/usr/App/dist";
+    // private static final String downloadPath = "C:\\Users\\86183\\Desktop\\watermark\\watermark-demo\\vue\\dist";
+    // private static final String downloadPath = "E:\\develop\\code\\去水印代码参考\\watermark\\watermark-demo\\vue\\dist";
     private static final String vedioExtension = ".mp4";
     private static final String imageExtension = ".jpg";
 
@@ -33,15 +35,15 @@ public class DownloadUtil {
         UUID fileName = UUID.randomUUID();
         String downloadUrl = url;
         if (mediaType.getName().equals("视频")) {
-            if (platform.getName().equals("抖音")) {
-                // 如果是抖音平台的，则需要将网址转化为可下载的网址
-                downloadUrl = DownloadUtil.parseUrl(url);
-            }
+            // if (platform.getName().equals("抖音")) {
+            //     // 如果是抖音平台的，则需要将网址转化为可下载的网址
+            //     downloadUrl = DownloadUtil.parseUrl(url);
+            // }
             downLoadFromUrl(downloadUrl, fileName + vedioExtension, downloadPath);
-            return "http://localhost:9876/" + fileName + vedioExtension;
+            return "http://182.92.176.32:9876/" + fileName + vedioExtension;
         } else {
             downLoadFromUrl(url, fileName + imageExtension, downloadPath);
-            return "http://localhost:9876/" + fileName + imageExtension;
+            return "http://182.92.176.32:9876/" + fileName + imageExtension;
         }
     }
 
@@ -52,12 +54,14 @@ public class DownloadUtil {
     public static String parseUrl(String url) throws Exception {
         URL tariff = new URL(url);
         URLConnection c = tariff.openConnection();
-        c.setRequestProperty("User-Agent", " USER AGENT STRING HERE ");
-        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+        // c.setRequestProperty("User-Agent", " USER AGENT STRING HERE ");
+        c.setRequestProperty("User-agent","Mozilla/4.0");
+        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream(),"GB2312"));
         String originUrl = br.readLine();
         System.out.println(originUrl);
         // 获取到的originUrl被a标签包裹，需要获取到href中的链接，使用Jsoup工具来获取
         Document document = Jsoup.parseBodyFragment(originUrl);
+        System.out.println(document);
         Element a = document.getElementsByTag("a").get(0);
         return a.attr("href");
     }
